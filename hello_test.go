@@ -14,7 +14,7 @@ func TestHello(t *testing.T) {
 
 	// add a Test.Run for returning name
 	t.Run("saying hello to people", func(t *testing.T) {
-		got := Hello("Go")
+		got := Hello("Go", "")
 		want := "Hello, Go!"
 
 		assertTestOutput(t, got, want)
@@ -22,8 +22,16 @@ func TestHello(t *testing.T) {
 
 	// add a Test.Run for default meesage
 	t.Run("defaulting to world", func(t *testing.T) {
-		got := Hello("")
+		got := Hello("", "")
 		want := "Hello, World!"
+
+		assertTestOutput(t, got, want)
+	})
+
+	// add Test.Run for spanish method
+	t.Run("in spanish", func(t *testing.T) {
+		got := Hello("Maria", "Spanish")
+		want := "Hola, Maria!"
 
 		assertTestOutput(t, got, want)
 	})
