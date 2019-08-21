@@ -9,3 +9,16 @@ func Sum(numbers []int) int {
 
 	return sum
 }
+
+// SumAll returns an array containing each sum of argument
+func SumAll(slices ...[]int) []int {
+	lengthOfSlices := len(slices)
+
+	sums := make([]int, lengthOfSlices)
+
+	for idx, slice := range slices {
+		sums[idx] = Sum(slice)
+	}
+
+	return sums
+}
