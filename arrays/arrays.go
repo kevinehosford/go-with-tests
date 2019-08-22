@@ -12,12 +12,20 @@ func Sum(numbers []int) int {
 
 // SumAll returns an array containing each sum of argument
 func SumAll(slices ...[]int) []int {
-	lengthOfSlices := len(slices)
+	var sums []int
 
-	sums := make([]int, lengthOfSlices)
+	for _, slice := range slices {
+		sums = append(sums, Sum(slice))
+	}
 
-	for idx, slice := range slices {
-		sums[idx] = Sum(slice)
+	return sums
+}
+
+// SumAllTails does something
+func SumAllTails(slices ...[]int) []int {
+	var sums []int
+	for _, slice := range slices {
+		sums = append(sums, Sum(slice[1:]))
 	}
 
 	return sums
