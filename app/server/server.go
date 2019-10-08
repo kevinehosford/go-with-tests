@@ -6,20 +6,25 @@ import (
 )
 
 // PlayerServer ...
-func PlayerServer(w http.ResponseWriter, req *http.Request) {
-	player := req.URL.Path[len("/players/"):]
-
-	fmt.Fprintf(w, getPlayerScore(player))
+type PlayerServer struct {
+	Store PlayerStore
 }
 
-func getPlayerScore(player string) string {
-	if player == "Pepper" {
-		return "20"
-	}
+// InMemoryPlayerStore ...
+type InMemoryPlayerStore struct{}
 
-	if player == "Floyd" {
-		return "10"
-	}
+// GetPlayerScore ...
+func (i *InMemoryPlayerStore) GetPlayerScore(name string) int {
+	return 123
+}
 
-	return ""
+func (p *PlayerServer) ServeHTTP(w http.ResponseWriter, req *http.Request) {
+	player := req.URL.Path[len("/players/"):]
+
+	fmt.Fprintf(w, fmt.Sprintf("%d", p.Store.GetPlayerScore(player)))
+}
+
+// PlayerStore ...
+type PlayerStore interface {
+	GetPlayerScore(string) int
 }
